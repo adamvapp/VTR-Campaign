@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>San Francisco 2003 - Domain Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #111;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 1. Initialize map with CRS.Simple for pixel-based mapping
+        var map = L.map('map', {
+            crs: L.CRS.Simple,
+            minZoom: -2,
+            maxZoom: 2,
+            zoomSnap: 0.5
+        });
+
+        // 2. Define image bounds based on your 2000x2000px dimensions
+        var w = 2000, h = 2000;
+        var bounds = [[0, 0], [h, w]];
+        
+        // 3. Add the map image overlay (ensure your image is named maptest.png and in the same folder)
+        var image = L.imageOverlay('maptest.png', bounds).addTo(map);
+        
+        map.fitBounds(bounds);
+
+        // 4. Add interactive markers with hierarchical labels
+        // Grace Cathedral (Major Elysium - visible right away)
+        var graceCathedral = L.marker([1100, 1050]).addTo(map);
+        graceCathedral.bindPopup("<b>Grace Cathedral</b><br>The Camarilla Elysium.");
+
+        // The Castro Theater (Anarch Club - hidden or secondary)
+        var castro = L.marker([1400, 800]).addTo(map);
+        castro.bindPopup("<b>The Castro Theater</b><br>Anarch territory and meeting ground.");
+
+        // Twin Peaks Warrens
+        var twinPeaks = L.marker([1600, 900]).addTo(map);
+        twinPeaks.bindPopup("<b>Twin Peaks Tunnel</b><br>Nosferatu Warrens.");
+    </script>
+
+</body>
+</html>
