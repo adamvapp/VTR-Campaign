@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>San Francisco 2003 - Domain Map</title>
-    <!-- Open Graph Tags for Discord Preview -->
+    <!-- Open Graph Tags -->
     <meta property="og:title" content="San Francisco 2003 - Domain Map">
     <meta property="og:description" content="Interactive Vampire: The Requiem Campaign Map">
     <meta property="og:image" content="https://raw.githubusercontent.com/adamvapp/VTR-Campaign/main/maptest.png">
@@ -21,6 +21,15 @@
             width: 100%;
             height: 100vh;
         }
+        .leaflet-popup-content-wrapper {
+            background: #1a1a1a;
+            color: #ddd;
+            border: 1px solid #444;
+            font-family: sans-serif;
+        }
+        .leaflet-popup-tip {
+            background: #444;
+        }
     </style>
 </head>
 <body>
@@ -30,35 +39,59 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // 1. Initialize map with CRS.Simple for pixel-based mapping
+        // 1. Initialize map with CRS.Simple
         var map = L.map('map', {
             crs: L.CRS.Simple,
-            minZoom: -2,
-            maxZoom: 2,
+            minZoom: -1.5,
+            maxZoom: 3,
             zoomSnap: 0.5
         });
 
-        // 2. Define image bounds based on your 2000x2000px dimensions
+        // 2. Define image bounds for 2000x2000px
         var w = 2000, h = 2000;
         var bounds = [[0, 0], [h, w]];
         
-        // 3. Add the map image overlay (ensure your image is named maptest.png and in the same folder)
+        // 3. Add the image overlay
         var image = L.imageOverlay('maptest.png', bounds).addTo(map);
-        
         map.fitBounds(bounds);
 
-        // 4. Add interactive markers with hierarchical labels
-        // Grace Cathedral (Major Elysium - visible right away)
-        var graceCathedral = L.marker([1100, 1050]).addTo(map);
-        graceCathedral.bindPopup("<b>Grace Cathedral</b><br>The Camarilla Elysium.");
+        // 4. District Borders (Corrected Y-axis: higher numbers are near the top of the image)
+        // Golden Gate Park (West side rectangle)
+        var goldenGatePolygon = L.polygon([
+            [1235, 180], [1187, 182], [1203, 470], [1255, 484]
+        ], {color: '#2e8b57', fillColor: '#2e8b57', fillOpacity: 0.25, weight: 2}).addTo(map);
+        goldenGatePolygon.bindPopup("<b>The Wilds / Golden Gate Park</b><br>Untamed territory at night.");
 
-        // The Castro Theater (Anarch Club - hidden or secondary)
-        var castro = L.marker([1400, 800]).addTo(map);
-        castro.bindPopup("<b>The Castro Theater</b><br>Anarch territory and meeting ground.");
+        // 5. Waypoints & Markers (Placed accurately on the peninsula landmass)
+        // Grace Cathedral (Nob Hill - North/Central high ground)
+        var graceCathedral = L.marker([1394, 745]).addTo(map);
+        graceCathedral.bindPopup("<b>Grace Cathedral</b><br>Camarilla Elysium. Neutral ground under the Prince's watchful eye.");
 
-        // Twin Peaks Warrens
-        var twinPeaks = L.marker([1600, 900]).addTo(map);
-        twinPeaks.bindPopup("<b>Twin Peaks Tunnel</b><br>Nosferatu Warrens.");
+        // The Castro Theater (Castro District - West of Mission)
+        var castro = L.marker([1170, 623]).addTo(map);
+        castro.bindPopup("<b>The Castro Theater</b><br>Anarch Club and gathering hub.");
+
+        // Twin Peaks Tunnel (South-west hills)
+        var twinPeaks = L.marker([1008, 431]).addTo(map);
+        twinPeaks.bindPopup("<b>Twin Peaks Tunnel</b><br>Nosferatu Warrens and subterranean transit network.");
+
+        // Golden Gate Park Hub
+        var ggPark = L.marker( [1218, 334]).addTo(map);
+        ggPark.bindPopup("<b>The Wilds (Golden Gate Park)</b><br>Dangerous grounds; avoid after midnight.");
+// Coordinate Click-Logger Tool
+        map.on('click', function(e) {
+            // Rounds the coordinates to whole numbers for easy copy-pasting
+            var y = Math.round(e.latlng.lat);
+            var x = Math.round(e.latlng.lng);
+            
+            console.log("Clicked coordinates: [" + y + ", " + x + "]");
+            
+            // Temporarily pops up the coordinates wherever you click
+            L.popup()
+                .setLatLng(e.latlng)
+                .setContent("Coordinates: [" + y + ", " + x + "]")
+                .openOn(map);
+        });
     </script>
 
 </body>
