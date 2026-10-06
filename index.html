@@ -370,6 +370,11 @@
         warfield.bindPopup("<b>The Warfield</b><br><i>Lancea et Sanctum Parish</i><br>Grand historic theater, gritty rock and metal concerts.");
         lanceaLayer.addLayer(warfield);
 
+        var alcatraz = L.marker([1649, 691], {icon: columnIcon});
+        alcatraz.bindPopup("<b>Alcatraz Island</b><br><i>The Column's Penal Colony</i><br>Penal colony, disgraced exiled by the prince, sleeping and sealed elders.");
+        lanceaLayer.addLayer(alcatraz);
+
+
         // Add default layers to map
         columnLayer.addTo(map);
         carthianLayer.addTo(map);
