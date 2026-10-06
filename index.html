@@ -55,16 +55,37 @@
         .leaflet-control-layers-expanded {
             background: #141414 !important;
             color: #d1d1d1 !important;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        /* Layer Control Category Headers */
+        .leaflet-control-layers-list hr {
+            border: 0;
+            border-top: 1px solid #333;
+            margin: 6px 0;
         }
         /* Map Legend Styling */
         .map-legend {
             line-height: 20px;
             font-size: 12px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .legend-section-title {
+            font-weight: bold;
+            color: #b22222;
+            margin-top: 6px;
+            margin-bottom: 2px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 2px;
         }
         .legend-item {
             display: flex;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .legend-color {
             width: 12px;
@@ -74,39 +95,35 @@
             display: inline-block;
             border: 1px solid #fff;
         }
-        /* District Sidebar Styling */
+        /* District Sidebar Styling - Compact Dropdown */
         .district-sidebar {
             position: absolute;
             top: 10px;
             left: 50px;
             z-index: 1000;
-            width: 180px;
         }
-        .district-sidebar h4 {
-            margin: 0 0 8px 0;
-            font-size: 13px;
-            color: #b22222;
-            border-bottom: 1px solid #333;
-            padding-bottom: 4px;
-            letter-spacing: 0.5px;
-        }
-        .district-btn {
-            display: block;
-            width: 100%;
+        .district-select {
             background: #1f1f1f;
             color: #ccc;
             border: 1px solid #333;
-            padding: 5px 8px;
-            margin-bottom: 4px;
-            text-align: left;
+            padding: 6px 10px;
             border-radius: 3px;
             cursor: pointer;
             font-size: 12px;
-            transition: background 0.2s, color 0.2s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            outline: none;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
-        .district-btn:hover {
-            background: #b22222;
+        .district-select:hover, .district-select:focus {
+            background: #141414;
             color: #fff;
+            border-color: #b22222;
+        }
+        .district-select option {
+            background: #141414;
+            color: #d1d1d1;
+            padding: 5px;
         }
 
         /* Custom Gothic Map Pins */
@@ -121,13 +138,49 @@
         .gothic-pin:hover {
             transform: scale(1.3);
         }
-        .pin-camarilla {
+        .pin-column {
             background-color: #b22222;
             box-shadow: 0 0 8px #ff0000;
         }
-        .pin-anarch {
+        .pin-carthian {
             background-color: #d4af37;
             box-shadow: 0 0 8px #ffaa00;
+        }
+        .pin-circle {
+            background-color: #2e8b57;
+            box-shadow: 0 0 8px #3cb371;
+        }
+        .pin-lancea {
+            background-color: #8b008b;
+            box-shadow: 0 0 8px #ba55d3;
+        }
+        .pin-invictus {
+            background-color: #1e90ff;
+            box-shadow: 0 0 8px #00bfff;
+        }
+        .pin-ordo {
+            background-color: #ff8c00;
+            box-shadow: 0 0 8px #ffa500;
+        }
+        .pin-daeva {
+            background-color: #ff1493;
+            box-shadow: 0 0 8px #ff69b4;
+        }
+        .pin-gangrel {
+            background-color: #556b2f;
+            box-shadow: 0 0 8px #6b8e23;
+        }
+        .pin-mekhet {
+            background-color: #483d8b;
+            box-shadow: 0 0 8px #6a5acd;
+        }
+        .pin-nosferatu {
+            background-color: #2f4f4f;
+            box-shadow: 0 0 8px #708090;
+        }
+        .pin-ventrue {
+            background-color: #800000;
+            box-shadow: 0 0 10px #a52a2a;
         }
         .pin-independent {
             background-color: #4a5568;
@@ -141,12 +194,29 @@
 
     <!-- Quick-Jump District Sidebar -->
     <div class="district-sidebar">
-        <h4>Domain Quarters</h4>
-        <button class="district-btn" onclick="zoomToDistrict(1394, 745, 1)">Nob Hill (Elysium)</button>
-        <button class="district-btn" onclick="zoomToDistrict(1170, 623, 1)">The Castro</button>
-        <button class="district-btn" onclick="zoomToDistrict(1008, 431, 1)">Twin Peaks</button>
-        <button class="district-btn" onclick="zoomToDistrict(1218, 334, 1)">Golden Gate Park</button>
-        <button class="district-btn" onclick="resetView()">Reset View</button>
+        <select class="district-select" onchange="handleQuickJump(this)">
+            <option value="" disabled selected>Quick-Jump Quarters...</option>
+            <option value="reset">-- Reset View --</option>
+            <option value="1394,745,1">Nob Hill / Grace Cathedral</option>
+            <option value="1170,623,1">The Castro Theater</option>
+            <option value="1008,431,1">Twin Peaks Warrens</option>
+            <option value="1218,334,1">Golden Gate Park</option>
+            <option value="1417,788,1">Chinatown</option>
+            <option value="1333,725,1">The Tenderloin</option>
+            <option value="1265,891,1">The Hour</option>
+            <option value="1360,799,1">SF Chronicle Building</option>
+            <option value="1126,791,1">SF General Hospital</option>
+            <option value="1514,760,1">Fisherman's Wharf</option>
+            <option value="1474,539,1">Palace of Fine Arts</option>
+            <option value="1330,638,1">The Fillmore</option>
+            <option value="1166,697,1">Valencia Street Strip</option>
+            <option value="1305,161,1">Sutro Baths</option>
+            <option value="1289,831,1">SoMa Warehouse District</option>
+            <option value="1344,799,1">Marriott Marquis</option>
+            <option value="1295,157,1">The Cliff House</option>
+            <option value="1233,547,1">Haight-Ashbury</option>
+            <option value="1314,749,1">The Warfield</option>
+        </select>
     </div>
 
     <!-- Leaflet JS -->
@@ -175,15 +245,45 @@
         function resetView() {
             map.fitBounds(bounds);
         }
+        function handleQuickJump(selectElement) {
+            var val = selectElement.value;
+            if (val === "reset") {
+                resetView();
+            } else if (val) {
+                var parts = val.split(',');
+                zoomToDistrict(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2]));
+            }
+            selectElement.selectedIndex = 0; // Reset dropdown back to placeholder
+        }
 
         // --- DEFINE CUSTOM GOTHIC ICONS ---
-        var camarillaIcon = L.divIcon({ className: 'gothic-pin pin-camarilla', iconSize: [16, 16], iconAnchor: [8, 8] });
-        var anarchIcon = L.divIcon({ className: 'gothic-pin pin-anarch', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var columnIcon = L.divIcon({ className: 'gothic-pin pin-column', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var carthianIcon = L.divIcon({ className: 'gothic-pin pin-carthian', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var circleIcon = L.divIcon({ className: 'gothic-pin pin-circle', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var lanceaIcon = L.divIcon({ className: 'gothic-pin pin-lancea', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var invictusIcon = L.divIcon({ className: 'gothic-pin pin-invictus', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var ordoIcon = L.divIcon({ className: 'gothic-pin pin-ordo', iconSize: [16, 16], iconAnchor: [8, 8] });
+        
+        var daevaIcon = L.divIcon({ className: 'gothic-pin pin-daeva', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var gangrelIcon = L.divIcon({ className: 'gothic-pin pin-gangrel', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var mekhetIcon = L.divIcon({ className: 'gothic-pin pin-mekhet', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var nosferatuIcon = L.divIcon({ className: 'gothic-pin pin-nosferatu', iconSize: [16, 16], iconAnchor: [8, 8] });
+        var ventrueIcon = L.divIcon({ className: 'gothic-pin pin-ventrue', iconSize: [16, 16], iconAnchor: [8, 8] });
         var independentIcon = L.divIcon({ className: 'gothic-pin pin-independent', iconSize: [16, 16], iconAnchor: [8, 8] });
 
         // --- LAYER GROUPS FOR FILTERING ---
-        var camarillaLayer = new L.LayerGroup();
-        var anarchLayer = new L.LayerGroup();
+        var columnLayer = new L.LayerGroup();
+        var carthianLayer = new L.LayerGroup();
+        var circleLayer = new L.LayerGroup();
+        var lanceaLayer = new L.LayerGroup();
+        var invictusLayer = new L.LayerGroup();
+        var ordoLayer = new L.LayerGroup();
+        
+        var daevaLayer = new L.LayerGroup();
+        var gangrelLayer = new L.LayerGroup();
+        var mekhetLayer = new L.LayerGroup();
+        var nosferatuLayer = new L.LayerGroup();
+        var ventrueLayer = new L.LayerGroup();
         var territoryLayer = new L.LayerGroup();
 
         // 4. District Borders & Territories
@@ -194,44 +294,212 @@
         territoryLayer.addLayer(goldenGatePolygon);
 
         // 5. Waypoints & Markers with Lore-Rich Popups
-        var graceCathedral = L.marker([1394, 745], {icon: camarillaIcon});
-        graceCathedral.bindPopup("<b>Grace Cathedral</b><br><i>Camarilla Elysium</i><br>Neutral ground under strict surveillance by the Prince's hounds.");
-        camarillaLayer.addLayer(graceCathedral);
+        var graceCathedral = L.marker([1394, 745], {icon: columnIcon});
+        graceCathedral.bindPopup("<b>Grace Cathedral</b><br><i>The Column Elysium</i><br>Neutral ground under strict surveillance by the Primogen's hounds.");
+        columnLayer.addLayer(graceCathedral);
 
-        var castro = L.marker([1170, 623], {icon: anarchIcon});
-        castro.bindPopup("<b>The Castro Theater</b><br><i>Anarch Territory</i><br>Primary gathering hub and cultural anchor for local free-states.");
-        anarchLayer.addLayer(castro);
+        var castro = L.marker([1170, 623], {icon: carthianIcon});
+        castro.bindPopup("<b>The Castro Theater</b><br><i>The Carthian Movement Territory</i><br>Primary gathering hub and cultural anchor for local free-states.");
+        carthianLayer.addLayer(castro);
 
-        var twinPeaks = L.marker([1008, 431], {icon: independentIcon});
+        var twinPeaks = L.marker([1008, 431], {icon: nosferatuIcon});
         twinPeaks.bindPopup("<b>Twin Peaks Tunnel</b><br><i>Nosferatu Warrens</i><br>Subterranean transit network. Unauthorized entry forbidden.");
-        territoryLayer.addLayer(twinPeaks);
+        nosferatuLayer.addLayer(twinPeaks);
 
-        var ggPark = L.marker([1218, 334], {icon: independentIcon});
-        ggPark.bindPopup("<b>The Wilds (Golden Gate Park)</b><br><i>Restricted Zone</i><br>Dangerous feral territory; avoid after midnight.");
-        territoryLayer.addLayer(ggPark);
+        var ggPark = L.marker([1218, 334], {icon: circleIcon});
+        ggPark.bindPopup("<b>The Wilds (Golden Gate Park)</b><br><i>Circle of the Crone Sanctuary</i><br>Dangerous feral territory; sacred groves.");
+        circleLayer.addLayer(ggPark);
+
+        var chinatown = L.marker([1417, 788], {icon: mekhetIcon});
+        chinatown.bindPopup("<b>Chinatown</b><br><i>Mekhet Domain</i><br>Dense back alleys and teahouses, information brokerage. Easy to tail.");
+        mekhetLayer.addLayer(chinatown);
+
+        var tenderloin = L.marker([1333, 725], {icon: gangrelIcon});
+        tenderloin.bindPopup("<b>The Tenderloin</b><br><i>Gangrel Hunting Grounds</i><br>The Vice Grid, bad neighborhood, prime feeding ground.");
+        gangrelLayer.addLayer(tenderloin);
+
+        var hour = L.marker([1265, 891], {icon: daevaIcon});
+        hour.bindPopup("<b>The Hour</b><br><i>Daeva Haven</i><br>Rave club venue, nocturnal hotspot.");
+        daevaLayer.addLayer(hour);
+
+        var sfChronicle = L.marker([1360, 799], {icon: invictusIcon});
+        sfChronicle.bindPopup("<b>The San Francisco Chronicle Building</b><br><i>The Invictus Asset</i><br>Print media and news, investigative journalists; keep clear.");
+        invictusLayer.addLayer(sfChronicle);
+
+        var genHostpital = L.marker([1126, 791], {icon: ordoIcon});
+        genHostpital.bindPopup("<b>San Francisco General Hospital</b><br><i>Ordo Draconis Laboratory</i><br>Blood bank, emergency room, specialized research ward.");
+        ordoLayer.addLayer(genHostpital);
+
+        var fishWharf = L.marker([1514, 760], {icon: invictusIcon});
+        fishWharf.bindPopup("<b>Fisherman's Wharf</b><br><i>The Invictus Port Authority</i><br>Potential smuggling, clandestine drop-offs.");
+        invictusLayer.addLayer(fishWharf);
+
+        var artPalace = L.marker([1474, 539], {icon: daevaIcon});
+        artPalace.bindPopup("<b>The Palace of Fine Arts</b><br><i>Daeva Social Ground</i><br>Twilight walks, delicate political talks.");
+        daevaLayer.addLayer(artPalace);
+
+        var filmore = L.marker([1330, 638], {icon: carthianIcon});
+        filmore.bindPopup("<b>The Filmore</b><br><i>The Carthian Movement Venue</i><br>Music venue, semi-public neutral zone. Decent stuff.");
+        carthianLayer.addLayer(filmore);
+
+        var valenciaSt = L.marker([1166, 697], {icon: circleIcon});
+        valenciaSt.bindPopup("<b>Valencia Street Strip</b><br><i>Circle of the Crone Territory</i><br>Bookstores, tattoo parlors, late-night cafes. Ideal for the young.");
+        circleLayer.addLayer(valenciaSt);
+
+        var sutroBaths = L.marker([1305, 161], {icon: lanceaIcon});
+        sutroBaths.bindPopup("<b>Sutro Baths</b><br><i>Lancea et Sanctum Cathedral Ruins</i><br>Concrete ruins, oceanfront midnight tribunals.");
+        lanceaLayer.addLayer(sutroBaths);
+
+        var somaWarehouses = L.marker([1289, 831], {icon: carthianIcon});
+        somaWarehouses.bindPopup("<b>SoMa Warehouse District</b><br><i>Carthian Industrial Zone</i><br>Underground rave haven, illegal weekend parties. Intoxicating.");
+        carthianLayer.addLayer(somaWarehouses);
+
+        var marriott = L.marker([1344, 799], {icon: ventrueIcon});
+        marriott.bindPopup("<b>San Francisco Marriott Marquis</b><br><i>Ventrue Haven</i><br>High profile hotel, expensive and equally alluring.");
+        ventrueLayer.addLayer(marriott);
+
+        var cliffHouse = L.marker([1295, 157], {icon: ventrueIcon});
+        cliffHouse.bindPopup("<b>The Cliff House</b><br><i>Ventrue Domain</i><br>High society dining, private rooms.");
+        ventrueLayer.addLayer(cliffHouse);
+
+        var haightbury = L.marker([1233, 547], {icon: carthianIcon});
+        haightbury.bindPopup("<b>Haight-Ashbury Intersection</b><br><i>Carthian Commune</i><br>Historic epicenter of counter-culture. Independents thrive.");
+        carthianLayer.addLayer(haightbury);
+
+        var warfield = L.marker([1314, 749], {icon: lanceaIcon});
+        warfield.bindPopup("<b>The Warfield</b><br><i>Lancea et Sanctum Parish</i><br>Grand historic theater, gritty rock and metal concerts.");
+        lanceaLayer.addLayer(warfield);
 
         // Add default layers to map
-        camarillaLayer.addTo(map);
-        anarchLayer.addTo(map);
+        columnLayer.addTo(map);
+        carthianLayer.addTo(map);
+        circleLayer.addTo(map);
+        lanceaLayer.addTo(map);
+        invictusLayer.addTo(map);
+        ordoLayer.addTo(map);
+        daevaLayer.addTo(map);
+        gangrelLayer.addTo(map);
+        mekhetLayer.addTo(map);
+        nosferatuLayer.addTo(map);
+        ventrueLayer.addTo(map);
         territoryLayer.addTo(map);
 
-        // 6. Layer Control UI
-        var overlayMaps = {
-            "Camarilla Domain": camarillaLayer,
-            "Anarch Territory": anarchLayer,
+        // 6. Layer Control UI with Grouped Categories
+        var covenantMaps = {
+            "The Column": columnLayer,
+            "The Carthian Movement": carthianLayer,
+            "Circle of the Crone": circleLayer,
+            "Lancea et Sanctum": lanceaLayer,
+            "The Invictus": invictusLayer,
+            "Ordo Draconis": ordoLayer
+        };
+
+        var clanMaps = {
+            "Daeva": daevaLayer,
+            "Gangrel": gangrelLayer,
+            "Mekhet": mekhetLayer,
+            "Nosferatu": nosferatuLayer,
+            "Ventrue": ventrueLayer
+        };
+
+        var miscMaps = {
             "Sanctuaries & Zones": territoryLayer
         };
-        L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
 
-        // 7. Custom Map Legend Control
+        var layerControl = L.control.layers(null, null, {collapsed: false}).addTo(map);
+        
+        var container = layerControl.getContainer();
+        var listContainer = container.querySelector('.leaflet-control-layers-list');
+        
+        function setupLayerControlUI() {
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            
+            function addSectionHeader(titleText) {
+                var header = document.createElement('div');
+                header.style.cssText = 'font-weight: bold; color: #b22222; margin-top: 8px; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #333; padding-bottom: 2px;';
+                header.innerText = titleText;
+                listContainer.appendChild(header);
+            }
+
+            function addLayersToDOM(mapObj) {
+                for (var name in mapObj) {
+                    (function(layerName, layerGroup) {
+                        var label = document.createElement('label');
+                        label.style.cssText = 'display: flex; align-items: center; margin-bottom: 4px; cursor: pointer;';
+                        
+                        var checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'leaflet-control-layers-selector';
+                        checkbox.checked = map.hasLayer(layerGroup);
+                        
+                        checkbox.addEventListener('change', function() {
+                            if (checkbox.checked) {
+                                map.addLayer(layerGroup);
+                            } else {
+                                map.removeLayer(layerGroup);
+                            }
+                        });
+
+                        map.on('overlayadd overlayremove', function(e) {
+                            if (e.layer === layerGroup) {
+                                checkbox.checked = map.hasLayer(layerGroup);
+                            }
+                        });
+
+                        var span = document.createElement('span');
+                        span.style.marginLeft = '6px';
+                        span.innerText = layerName;
+
+                        label.appendChild(checkbox);
+                        label.appendChild(span);
+                        listContainer.appendChild(label);
+                    })(name, mapObj[name]);
+                }
+            }
+
+            addSectionHeader('Covenants');
+            addLayersToDOM(covenantMaps);
+            
+            var hr1 = document.createElement('hr');
+            listContainer.appendChild(hr1);
+
+            addSectionHeader('Clans');
+            addLayersToDOM(clanMaps);
+
+            var hr2 = document.createElement('hr');
+            listContainer.appendChild(hr2);
+
+            addSectionHeader('Misc / Territories');
+            addLayersToDOM(miscMaps);
+        }
+
+        setupLayerControlUI();
+
+        // 7. Custom Map Legend Control with Grouped Sections
         var LegendControl = L.Control.extend({
             options: { position: 'bottomleft' },
             onAdd: function (map) {
                 var div = L.DomUtil.create('div', 'map-legend');
                 div.innerHTML = `
-                    <b>Census Index</b><br>
-                    <div class="legend-item"><span class="legend-color" style="background:#b22222;"></span>Camarilla</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#d4af37;"></span>Anarch</div>
+                    <b>Census Index</b>
+                    
+                    <div class="legend-section-title">Covenants</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#b22222;"></span>The Column</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#d4af37;"></span>The Carthian Movement</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#2e8b57;"></span>Circle of the Crone</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#8b008b;"></span>Lancea et Sanctum</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#1e90ff;"></span>The Invictus</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#ff8c00;"></span>Ordo Draconis</div>
+
+                    <div class="legend-section-title">Clans</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#ff1493;"></span>Daeva</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#556b2f;"></span>Gangrel</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#483d8b;"></span>Mekhet</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#2f4f4f;"></span>Nosferatu</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#800000;"></span>Ventrue</div>
+
+                    <div class="legend-section-title">Misc</div>
                     <div class="legend-item"><span class="legend-color" style="background:#4a5568;"></span>Independent / Wilds</div>
                 `;
                 return div;
