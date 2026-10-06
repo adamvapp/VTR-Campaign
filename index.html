@@ -216,6 +216,7 @@
             <option value="1295,157,1">The Cliff House</option>
             <option value="1233,547,1">Haight-Ashbury</option>
             <option value="1314,749,1">The Warfield</option>
+            <option value="1649,691,1">Alcatraz Island</option>
         </select>
     </div>
 
@@ -372,7 +373,7 @@
 
         var alcatraz = L.marker([1649, 691], {icon: columnIcon});
         alcatraz.bindPopup("<b>Alcatraz Island</b><br><i>The Column's Penal Colony</i><br>Penal colony, disgraced exiled by the prince, sleeping and sealed elders.");
-        lanceaLayer.addLayer(alcatraz);
+        columnLayer.addLayer(alcatraz);
 
 
         // Add default layers to map
