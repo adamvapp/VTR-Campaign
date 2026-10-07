@@ -343,9 +343,9 @@
         filmore.bindPopup("<b>The Filmore</b><br><i>The Carthian Movement Venue</i><br>Music venue, semi-public neutral zone. Decent stuff.");
         carthianLayer.addLayer(filmore);
 
-        var valenciaSt = L.marker([1166, 697], {icon: circleIcon});
-        valenciaSt.bindPopup("<b>Valencia Street Strip</b><br><i>Circle of the Crone Territory</i><br>Bookstores, tattoo parlors, late-night cafes. Ideal for the young.");
-        circleLayer.addLayer(valenciaSt);
+        var valenciaSt = L.marker([1166, 697], {icon: independentIcon});
+        valenciaSt.bindPopup("<b>Valencia Street Strip</b><br><i>Independent Territory</i><br>Bookstores, tattoo parlors, late-night cafes. Ideal for the young.");
+        territoryLayer.addLayer(valenciaSt);
 
         var sutroBaths = L.marker([1305, 161], {icon: lanceaIcon});
         sutroBaths.bindPopup("<b>Sutro Baths</b><br><i>Lancea et Sanctum Cathedral Ruins</i><br>Concrete ruins, oceanfront midnight tribunals.");
@@ -386,6 +386,30 @@
         var transamPyramid = L.marker([1410, 808], {icon: invictusIcon});
         transamPyramid.bindPopup("<b>The Transamerica Pyramid</b><br><i>Invictus Corporate Skyscraper</i><br>The heart of financial control over San Francisco, full fo shell companies and surveillance hubs. A fang which reaches the horizon.");
         invictusLayer.addLayer(transamPyramid);
+
+        var cowPalace = L.marker([760, 707], {icon: independentIcon});
+        cowPalace.bindPopup("<b>The Cow Palace Arena</b><br><i>Independent Event Center</i><br>Vast, cavernous, and historically tied to rodeos where the rough-and-tumble congregate.");
+        territoryLayer.addLayer(cowPalace);
+
+        var sfAirport = L.marker([148, 919], {icon: columnIcon});
+        sfAirport.bindPopup("<b>San Francisco International Airport</b><br><i>International Transit and Freight Hub</i><br>Airport security is tight, but freight and cargo is still the best way to move torpid Kindred and illicit cargo in or out of the Bay Area.");
+        columnLayer.addLayer(sfAirport);
+
+        var colmaCemetaries = L.marker([148, 919], {icon: circleIcon});
+        colmaCemetaries.bindPopup("<b>Colma Cemetaries District</b><br><i>Local Coven of the Crone</i><br>Known to Kindred as 'Necropolis,' where Kine grieve and coven commune with spirits below the Earth.");
+        circleLayer.addLayer(colmaCemetaries);
+
+        var oaklandPort = L.marker([1416, 1532], {icon: independentIcon});
+        oaklandPort.bindPopup("<b>The Port of Oakland</b><br><i>Independent Industrial Shipping Port</i><br>Gritty, loud, sprawling with towering cranes and stacks of shipping containers. Prime smuggling ground operating out of San Francisco proper.");
+        territoryLayer.addLayer(oaklandPort);
+
+        var ucBerkeley = L.marker([1948, 1642], {icon: invictusIcon});
+        ucBerkeley.bindPopup("<b>UC Berkeley Campus</b><br><i>University and Student District</i><br>Intellectual, restless, packed with transient student populations. Low-suspicion feeding pool, but eyes are everywhere.");
+        invictusLayer.addLayer(ucBerkeley);
+
+        var foxTheater = L.marker([1509, 1575], {icon: mekhetIcon});
+        foxTheater.bindPopup("<b>Oakland Fox Theater</b><br><i>Decaying Historic Theater</i><br>Permanently closed since the 70s. It's quiet, and has been so for a long time. Perfect safehouse, but things may still be lurking.");
+        mekhetLayer.addLayer(foxTheater);
 
         // Add default layers to map
         columnLayer.addTo(map);
