@@ -375,6 +375,17 @@
         alcatraz.bindPopup("<b>Alcatraz Island</b><br><i>The Column's Penal Colony</i><br>Penal colony, disgraced exiled by the prince, sleeping and sealed elders.");
         columnLayer.addLayer(alcatraz);
 
+        var marinBattery = L.marker([1627, 57], {icon: independentIcon});
+        marinBattery.bindPopup("<b>Marin Headlands Battery</b><br><i>Independent Safehouse</i><br>Windy concrete battery installations, Golden Gate overlook. Far from watchful eyes.");
+        territoryLayer.addLayer(marinBattery);
+
+        var floatingHomes = L.marker([1938, 276], {icon: daevaIcon});
+        floatingHomes.bindPopup("<b>Floating Homes of Sausalito</b><br><i>Daeva Colony</i><br>A tightly knit, eccentric community of Kindred and Kine. A wonderful smokescreen.");
+        daevaLayer.addLayer(floatingHomes);
+
+        var transamPyramid = L.marker([1410, 808], {icon: invictusIcon});
+        transamPyramid.bindPopup("<b>The Transamerica Pyramid</b><br><i>Invictus Corporate Skyscraper</i><br>The heart of financial control over San Francisco, full fo shell companies and surveillance hubs. A fang which reaches the horizon.");
+        invictusLayer.addLayer(transamPyramid);
 
         // Add default layers to map
         columnLayer.addTo(map);
