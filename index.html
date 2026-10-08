@@ -58,7 +58,7 @@
         .leaflet-control-layers-expanded {
             background: #141414 !important;
             color: #d1d1d1 !important;
-            max-height: 80vh;
+            max-height: 70vh;
             overflow-y: auto;
         }
         /* Layer Control Category Headers */
@@ -71,7 +71,7 @@
         .map-legend {
             line-height: 20px;
             font-size: 12px;
-            max-height: 80vh;
+            max-height: 50vh;
             overflow-y: auto;
         }
         .legend-section-title {
@@ -141,56 +141,20 @@
         .gothic-pin:hover {
             transform: scale(1.3);
         }
-        .pin-column {
-            background-color: #b22222;
-            box-shadow: 0 0 8px #ff0000;
-        }
-        .pin-carthian {
-            background-color: #d4af37;
-            box-shadow: 0 0 8px #ffaa00;
-        }
-        .pin-circle {
-            background-color: #2e8b57;
-            box-shadow: 0 0 8px #3cb371;
-        }
-        .pin-lancea {
-            background-color: #8b008b;
-            box-shadow: 0 0 8px #ba55d3;
-        }
-        .pin-invictus {
-            background-color: #1e90ff;
-            box-shadow: 0 0 8px #00bfff;
-        }
-        .pin-ordo {
-            background-color: #ff8c00;
-            box-shadow: 0 0 8px #ffa500;
-        }
-        .pin-daeva {
-            background-color: #ff1493;
-            box-shadow: 0 0 8px #ff69b4;
-        }
-        .pin-gangrel {
-            background-color: #556b2f;
-            box-shadow: 0 0 8px #6b8e23;
-        }
-        .pin-mekhet {
-            background-color: #483d8b;
-            box-shadow: 0 0 8px #6a5acd;
-        }
-        .pin-nosferatu {
-            background-color: #2f4f4f;
-            box-shadow: 0 0 8px #708090;
-        }
-        .pin-ventrue {
-            background-color: #800000;
-            box-shadow: 0 0 10px #a52a2a;
-        }
-        .pin-independent {
-            background-color: #4a5568;
-            box-shadow: 0 0 8px #718096;
-        }
+        .pin-column { background-color: #b22222; box-shadow: 0 0 8px #ff0000; }
+        .pin-carthian { background-color: #d4af37; box-shadow: 0 0 8px #ffaa00; }
+        .pin-circle { background-color: #2e8b57; box-shadow: 0 0 8px #3cb371; }
+        .pin-lancea { background-color: #8b008b; box-shadow: 0 0 8px #ba55d3; }
+        .pin-invictus { background-color: #1e90ff; box-shadow: 0 0 8px #00bfff; }
+        .pin-ordo { background-color: #ff8c00; box-shadow: 0 0 8px #ffa500; }
+        .pin-daeva { background-color: #ff1493; box-shadow: 0 0 8px #ff69b4; }
+        .pin-gangrel { background-color: #556b2f; box-shadow: 0 0 8px #6b8e23; }
+        .pin-mekhet { background-color: #483d8b; box-shadow: 0 0 8px #6a5acd; }
+        .pin-nosferatu { background-color: #2f4f4f; box-shadow: 0 0 8px #708090; }
+        .pin-ventrue { background-color: #800000; box-shadow: 0 0 10px #a52a2a; }
+        .pin-independent { background-color: #4a5568; box-shadow: 0 0 8px #718096; }
 
-        /* --- MOBILE RESPONSIVE TWEAKS (Does not affect PC layout) --- */
+        /* --- MOBILE RESPONSIVE TWEAKS --- */
         @media (max-width: 768px) {
             .district-sidebar {
                 top: 10px;
@@ -202,15 +166,21 @@
                 font-size: 14px;
                 padding: 10px;
             }
-            /* Collapse bulky overlays on small screens so they don't block the map */
-            .leaflet-control-layers:not(.leaflet-control-layers-expanded),
-            .map-legend {
-                font-size: 11px;
-                padding: 6px;
+            /* Force layer control and legend to collapse/shrink cleanly on mobile */
+            .leaflet-control-layers:not(.leaflet-control-layers-expanded) {
+                background: #141414 url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d1d1d1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>') no-repeat center !important;
+                background-size: 18px !important;
+            }
+            .leaflet-control-layers-expanded {
+                width: 240px;
+                max-height: 50vh;
+                font-size: 12px;
             }
             .map-legend {
-                max-height: 30vh;
-                max-width: 50vw;
+                max-height: 25vh;
+                max-width: 45vw;
+                font-size: 10px;
+                padding: 6px;
             }
         }
     </style>
@@ -265,7 +235,7 @@
             minZoom: -1.5,
             maxZoom: 3,
             zoomSnap: 0.5,
-            tap: true // Ensures smooth touch interaction on mobile browsers
+            tap: true
         });
 
         // 2. Define image bounds for 2000x2000px
@@ -291,7 +261,7 @@
                 var parts = val.split(',');
                 zoomToDistrict(parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2]));
             }
-            selectElement.selectedIndex = 0; // Reset dropdown back to placeholder
+            selectElement.selectedIndex = 0;
         }
 
         // --- DEFINE CUSTOM GOTHIC ICONS ---
@@ -331,7 +301,7 @@
         goldenGatePolygon.bindPopup("<b>The Wilds / Golden Gate Park</b><br><i>Untamed territory at night.</i><br>Status: High Hazard.");
         territoryLayer.addLayer(goldenGatePolygon);
 
-        // 5. Waypoints & Markers with Lore-Rich Popups
+        // 5. Waypoints & Markers
         var graceCathedral = L.marker([1394, 745], {icon: columnIcon});
         graceCathedral.bindPopup("<b>Grace Cathedral</b><br><i>The Column Elysium</i><br>Neutral ground under strict surveillance by the Primogen's hounds.");
         columnLayer.addLayer(graceCathedral);
@@ -484,7 +454,8 @@
             "Sanctuaries & Zones": territoryLayer
         };
 
-        var layerControl = L.control.layers(null, null, {collapsed: false}).addTo(map);
+        // Keep expanded on desktop (false), but let CSS media queries handle mobile toggling
+        var layerControl = L.control.layers(null, null, {collapsed: window.innerWidth <= 768}).addTo(map);
         
         var container = layerControl.getContainer();
         var listContainer = container.querySelector('.leaflet-control-layers-list');
@@ -554,7 +525,7 @@
 
         setupLayerControlUI();
 
-        // 7. Custom Map Legend Control with Grouped Sections
+        // 7. Custom Map Legend Control
         var LegendControl = L.Control.extend({
             options: { position: 'bottomleft' },
             onAdd: function (map) {
@@ -585,7 +556,7 @@
         });
         map.addControl(new LegendControl());
 
-        // Coordinate Click-Logger Tool (Active for manual placement)
+        // Coordinate Click-Logger Tool
         map.on('click', function(e) {
             var y = Math.round(e.latlng.lat);
             var x = Math.round(e.latlng.lng);
