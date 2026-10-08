@@ -67,13 +67,39 @@
             border-top: 1px solid #333;
             margin: 6px 0;
         }
-        /* Map Legend Styling */
+        /* Map Legend Styling & Collapsible Feature */
         .map-legend {
             line-height: 20px;
             font-size: 12px;
-            max-height: 50vh;
-            overflow-y: auto;
+            transition: max-height 0.3s ease;
         }
+        .legend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #d1d1d1;
+            user-select: none;
+        }
+        .legend-header:hover {
+            color: #fff;
+        }
+        .legend-body {
+            max-height: 35vh;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-top: 6px;
+            border-top: 1px solid #333;
+            padding-top: 6px;
+        }
+        .map-legend.collapsed .legend-body {
+            display: none;
+        }
+        .map-legend.collapsed {
+            padding-bottom: 8px;
+        }
+
         .legend-section-title {
             font-weight: bold;
             color: #b22222;
@@ -175,14 +201,14 @@
                 max-height: 50vh;
                 font-size: 12px;
             }
+            .legend-body {
+                max-height: 25vh;
+            }
             .map-legend {
-		.map-legend {
-           	line-height: 20px;
-            	font-size: 12px;
-            	max-height: 35vh; /* Limits height on smaller viewports */
-            	overflow-y: auto; /* Enables vertical scrolling */
-            	padding-right: 5px; /* Prevents text from crowding the scrollbar */
-        }
+                max-width: 45vw;
+                font-size: 10px;
+                padding: 6px;
+            }
         }
     </style>
 </head>
@@ -525,36 +551,52 @@
 
         setupLayerControlUI();
 
-        // 7. Custom Map Legend Control
+        // 7. Custom Map Legend Control (Collapsible/Hideable)
         var LegendControl = L.Control.extend({
             options: { position: 'bottomleft' },
             onAdd: function (map) {
                 var div = L.DomUtil.create('div', 'map-legend');
+                
+                // Prevent map clicks/drags from firing through the legend box
+                L.DomEvent.disableClickPropagation(div);
+                L.DomEvent.disableScrollPropagation(div);
+
                 div.innerHTML = `
-                    <b>Census Index</b>
-                    
-                    <div class="legend-section-title">Covenants</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#b22222;"></span>The Column</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#d4af37;"></span>The Carthian Movement</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#2e8b57;"></span>Circle of the Crone</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#8b008b;"></span>Lancea et Sanctum</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#1e90ff;"></span>The Invictus</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#ff8c00;"></span>Ordo Draconis</div>
+                    <div class="legend-header" onclick="toggleLegend()">
+                        <span>Census Index</span>
+                        <span id="legend-toggle-icon">▼</span>
+                    </div>
+                    <div class="legend-body">
+                        <div class="legend-section-title">Covenants</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#b22222;"></span>The Column</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#d4af37;"></span>The Carthian Movement</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#2e8b57;"></span>Circle of the Crone</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#8b008b;"></span>Lancea et Sanctum</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#1e90ff;"></span>The Invictus</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#ff8c00;"></span>Ordo Draconis</div>
 
-                    <div class="legend-section-title">Clans</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#ff1493;"></span>Daeva</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#556b2f;"></span>Gangrel</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#483d8b;"></span>Mekhet</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#2f4f4f;"></span>Nosferatu</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#800000;"></span>Ventrue</div>
+                        <div class="legend-section-title">Clans</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#ff1493;"></span>Daeva</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#556b2f;"></span>Gangrel</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#483d8b;"></span>Mekhet</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#2f4f4f;"></span>Nosferatu</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#800000;"></span>Ventrue</div>
 
-                    <div class="legend-section-title">Misc</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#4a5568;"></span>Independent / Wilds</div>
+                        <div class="legend-section-title">Misc</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#4a5568;"></span>Independent / Wilds</div>
+                    </div>
                 `;
                 return div;
             }
         });
         map.addControl(new LegendControl());
+
+        function toggleLegend() {
+            var legendEl = document.querySelector('.map-legend');
+            var icon = document.getElementById('legend-toggle-icon');
+            legendEl.classList.toggle('collapsed');
+            icon.innerText = legendEl.classList.contains('collapsed') ? '▲' : '▼';
+        }
 
         // Coordinate Click-Logger Tool
         map.on('click', function(e) {
