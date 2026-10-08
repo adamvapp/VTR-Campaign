@@ -176,11 +176,13 @@
                 font-size: 12px;
             }
             .map-legend {
-                max-height: 25vh;
-                max-width: 45vw;
-                font-size: 10px;
-                padding: 6px;
-            }
+		.map-legend {
+           	line-height: 20px;
+            	font-size: 12px;
+            	max-height: 35vh; /* Limits height on smaller viewports */
+            	overflow-y: auto; /* Enables vertical scrolling */
+            	padding-right: 5px; /* Prevents text from crowding the scrollbar */
+        }
         }
     </style>
 </head>
